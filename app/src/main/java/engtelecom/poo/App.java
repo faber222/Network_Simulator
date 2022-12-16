@@ -1,20 +1,40 @@
 package engtelecom.poo;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class App {
 
     public void lerTopologia(File arq) {
+        // Hashtable<String, String> maquinas = new Hashtable<String, String>();
+
+        Map<String, String> maquinas = new HashMap<String, String>();
 
         try (Scanner leitor = new Scanner(arq)) {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dispositivos = linha.split("--");
+                // String key;
+                // int value;
+                maquinas.put(dispositivos[0], dispositivos[1]);
+                // for (String nome : dispositivos) {
+                //     key = nome.substring(0, 1);
+                //     value = Integer.parseInt(nome.substring(1));
+                //     maquinas.put(key, value);
+                // }
                 System.out.printf("Origem: %s -- Destino: %s\n", dispositivos[0],
                         dispositivos[1]);
 
                 // System.out.println(leitor.nextLine());
+            }
+            System.out.println(maquinas.size());
+            Set<String> keys = maquinas.keySet();
+            for (String teste : keys) {
+                System.out.println("o valor de " + teste + " é: " + maquinas.get(teste));
             }
         } catch (Exception e) {
             System.err.print("Não foi possivel criar o arquivo " + e);
