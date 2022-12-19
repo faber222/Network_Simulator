@@ -11,8 +11,9 @@ public class App {
 
     public void lerTopologia(File arq) {
         // Hashtable<String, String> maquinas = new Hashtable<String, String>();
+        HashMap<String, String> maquinas = new HashMap<String, String>();
 
-        Map<String, String> maquinas = new HashMap<String, String>();
+        // Map<String, String> maquinas = new HashMap<String, String>();
 
         try (Scanner leitor = new Scanner(arq)) {
             while (leitor.hasNextLine()) {
@@ -70,8 +71,8 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        File arquivo = new File("topologia.txt");
-        File arquivo2 = new File("trafego.txt");
+        File arquivo = new File(args[0]);
+        File arquivo2 = new File(args[1]);
 
         app.lerTopologia(arquivo);
         app.lerTrafego(arquivo2);
