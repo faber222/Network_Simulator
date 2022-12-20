@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Leitor {
-    private Map<String, String> hosts;
-    private Map<String, ArrayList<String>> switchs;
-  
+public class Leitor extends Maquinas {
+    // private Map<String, String> hosts;
+    // private Map<String, ArrayList<String>> switchs;
+
     public Leitor(Map<String, String> hosts, Map<String, ArrayList<String>> switchs) {
-        this.hosts = hosts;
-        this.switchs = switchs;
+        super(hosts, switchs);
     }
 
     public void lerTopologia(File arq) {
@@ -22,19 +21,19 @@ public class Leitor {
                 String[] teste = dispositivos[0].split("");
 
                 if (teste[0].equals("h")) {
-                    this.hosts.put(dispositivos[0], dispositivos[1]);
+                    super.getHosts().put(dispositivos[0], dispositivos[1]);
                 } else {
                     ArrayList<String> tabela = new ArrayList<String>();
-                    if (this.switchs.containsKey(dispositivos[0])) {
-                        tabela = (this.switchs.get(dispositivos[0]));
+                    if (super.getSwitchs().containsKey(dispositivos[0])) {
+                        tabela = (super.getSwitchs().get(dispositivos[0]));
                     }
                     tabela.add(dispositivos[1]);
-                    this.switchs.put(dispositivos[0], tabela);
+                    super.getSwitchs().put(dispositivos[0], tabela);
                 }
             }
-            this.hosts.forEach((key, value) -> System.out.println("o valor de " + key + " é: " + value));
+            super.getHosts().forEach((key, value) -> System.out.println("o valor de " + key + " é: " + value));
 
-            this.switchs.forEach(
+            super.getSwitchs().forEach(
                     (key, value) -> value.forEach(lista -> System.out.println("o valor de " + key
                             + " é: " + lista)));
 
@@ -70,5 +69,4 @@ public class Leitor {
         }
     }
 
-    
 }

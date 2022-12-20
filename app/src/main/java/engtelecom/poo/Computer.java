@@ -1,5 +1,11 @@
 package engtelecom.poo;
 
-public class Computer {
-    
+import java.util.ArrayList;
+
+public class Computer extends Fila{
+
+    public Computer(ArrayList<String> fila, ArrayList<Switch> conexaoSwitch) {
+        super(fila, conexaoSwitch, null);
+    }
+
 }

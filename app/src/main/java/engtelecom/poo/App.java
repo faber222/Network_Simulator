@@ -35,8 +35,8 @@ public class App {
 
         Network rede = new Network(app.getHosts(), app.getSwitchs());
 
-        while (!rede.isFim()) {
-
-        }
+        // while (!rede.isFim()) {
+         
+        // }
     }
 }
