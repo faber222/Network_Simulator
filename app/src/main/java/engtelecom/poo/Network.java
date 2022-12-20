@@ -2,20 +2,26 @@ package engtelecom.poo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Network {
-    private HashMap<String, String> computador;
-    private ArrayList switches;
     private int ttl;
-    private ArrayList topologia;
+    private ArrayList<String> topologia;
     private String mensagem;
+    private boolean fim;
 
-    public Network(ArrayList topologia) {
-        this.computador = new HashMap<String, String>();
-        this.switches = new ArrayList<>();
+    private Map<String, String> hosts;
+    private Map<String, ArrayList<String>> switchs;
+
+    public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs) {
         this.ttl = 3;
+        this.fim = false;
+        this.hosts = hosts;
+        this.switchs = switchs;
     }
 
+    public boolean isFim() {
+        return fim;
+    }
 
-  
 }
