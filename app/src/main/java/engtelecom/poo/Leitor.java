@@ -18,11 +18,14 @@ public class Leitor extends Maquinas {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dispositivos = linha.split("--");
-                String[] teste = dispositivos[0].split("");
+                String[] primeiraColuna = dispositivos[0].split("");
+                String[] segundaColuna = dispositivos[1].split("");
 
-                if (teste[0].equals("h")) {
+                if (primeiraColuna[0].equals("h")) {
                     super.getHosts().put(dispositivos[0], dispositivos[1]);
-                } else {
+                } else if (segundaColuna[0].equals("h")) {
+                    super.getHosts().put(dispositivos[1], dispositivos[0]);
+                }  else {
                     ArrayList<String> tabela = new ArrayList<String>();
                     if (super.getSwitchs().containsKey(dispositivos[0])) {
                         tabela = (super.getSwitchs().get(dispositivos[0]));
@@ -31,14 +34,14 @@ public class Leitor extends Maquinas {
                     super.getSwitchs().put(dispositivos[0], tabela);
                 }
             }
-            super.getHosts().forEach((key, value) -> System.out.println("o valor de " + key + " é: " + value));
+            super.getHosts().forEach((key, value) -> System.out.println("o valor de " + key + " eh: " + value));
 
             super.getSwitchs().forEach(
                     (key, value) -> value.forEach(lista -> System.out.println("o valor de " + key
-                            + " é: " + lista)));
+                            + " eh: " + lista)));
 
         } catch (Exception e) {
-            System.err.print("Não foi possivel criar o arquivo " + e);
+            System.err.print("Nao foi possivel criar o arquivo " + e);
         }
     }
 
@@ -65,7 +68,7 @@ public class Leitor extends Maquinas {
                         dispositivos[1], dispositivos[2]);
             }
         } catch (Exception e) {
-            System.err.print("Não foi possivel criar o arquivo " + e);
+            System.err.print("Nao foi possivel criar o arquivo " + e);
         }
     }
 
