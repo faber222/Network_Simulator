@@ -6,9 +6,11 @@ import java.util.Map;
 
 public class Network {
     private int ttl;
-    private ArrayList<String> topologia;
     private String mensagem;
     private boolean fim;
+    private ArrayList<Switch> maquinaSwitch;
+    private ArrayList<Computer> maquinaComputer;
+    private Switch conexão;
 
     private Map<String, String> hosts;
     private Map<String, ArrayList<String>> switchs;
