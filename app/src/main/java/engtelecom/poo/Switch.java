@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Switch extends Fila {
     private int seq;
     private ArrayList<String> trafegoFila;
-    private int gerados;
     private int processados;
     private int descartados;
 
@@ -32,20 +31,21 @@ public class Switch extends Fila {
                     x++;
                 }
             }
-            if (list[0].equals("s") && list[1].equals("" + getId())) {
-                this.gerados += 1;
-            } else if (list[3].equals("s") && list[4].equals("" + getId())) {
-                this.processados += 1;
-            } else {
-                this.descartados += 1;
+
+            for (Switch sw : getConexaoSwitch()) {
+                if (dispositivos[1].equals("s" + sw.getId())) {
+                    this.processados += 1;
+                }
             }
-            // System.out.print("Switch: " + getId());
-            // // System.out.println("gerados: " + this.gerados + " processados: " +
-            // this.processados + " descartados: "
-            // // + this.descartados);
-            // System.out.printf(" Origem: %s -- Destino: %s -- Mensagem: %s\n",
-            // dispositivos[0],
-            // dispositivos[1], dispositivos[2]);
+
+            for (Computer pc : getConexaoPc()) {
+                if (dispositivos[1].equals("h" + pc.getId())) {
+                    this.processados += 1;
+                }
+            }
+
+            this.descartados += 1;
+
             setSeq(getSeq() + 1);
         }
         imprimeFinal(getId());

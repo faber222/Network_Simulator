@@ -36,13 +36,6 @@ public class Computer extends Fila {
             } else {
                 this.descartados += 1;
             }
-            // System.out.print("Host: " + getId());
-            // System.out.println(" gerados: " + this.gerados + " processados: " +
-            //         this.processados + " descartados: "
-            //         + this.descartados);
-            // System.out.printf(" Origem: %s -- Destino: %s -- Mensagem: %s\n",
-            // dispositivos[0],
-            // dispositivos[1], dispositivos[2]);
 
             setSeq(getSeq() + 1);
         }
