@@ -26,9 +26,77 @@ public class Network extends Maquinas {
             Switch sw = new Switch(getTrafego(), i);
             this.maquinaSwitch.add(sw);
         }
+        defineConexaoHost();
+        defineConexaoSwitch();
     }
 
-    
+    private void defineConexaoHost() {
+        int id = 1;
+        for (Computer pc : getMaquinaComputer()) {
+            if (pc.getId() == id) {
+                int idSwitch = 1;
+                int posicao = getMaquinaComputer().indexOf(pc);
+
+                if (super.getHosts().containsKey("h" + id)) {
+                    String swt = super.getHosts().get("h" + id);
+                    String swtArray[] = swt.split("");
+                    idSwitch = Integer.parseInt(swtArray[1]);
+
+                    for (Switch sw : getMaquinaSwitch()) {
+                        if (sw.getId() == idSwitch) {
+                            ArrayList<Switch> swAdd = new ArrayList<Switch>();
+                            swAdd.add(sw);
+                            pc.setConexaoSwitch(swAdd);
+                        }
+                    }
+                    getMaquinaComputer().set(posicao, pc);
+                }
+            }
+            id++;
+        }
+    }
+
+    private void defineConexaoSwitch() {
+        int id = 1;
+        for (Switch sw : getMaquinaSwitch()) {
+            if (sw.getId() == id) {
+                int idSwitch = 1;
+                int posicao = getMaquinaSwitch().indexOf(sw);
+
+                if (super.getSwitchs().containsKey("s" + id)) {
+                    ArrayList<String> maquina = super.getSwitchs().get("s" + id);
+                    ArrayList<Computer> pcAdd = new ArrayList<Computer>();
+                    ArrayList<Switch> swAdd = new ArrayList<Switch>();
+
+                    for (String swtArray : maquina) {
+                        String list[] = swtArray.split("");
+                        idSwitch = Integer.parseInt(list[1]);
+
+                        for (Computer pcConectado : getMaquinaComputer()) {
+                            if (pcConectado.getId() == idSwitch && list[0].equals("h")) {
+                                pcAdd.add(pcConectado);
+                                sw.setConexaoPc(pcAdd);
+                            }
+                        }
+                        for (Switch swConectado : getMaquinaSwitch()) {
+                            if (swConectado.getId() == idSwitch && list[0].equals("s")) {
+                                swAdd.add(swConectado);
+                                sw.setConexaoSwitch(swAdd);
+                            }
+                        }
+                    }   
+                    getMaquinaSwitch().set(posicao, sw);
+                }
+            }
+            id++;
+        }
+    }
+
+    public boolean processaDados() {
+
+        return false;
+    }
+
     public ArrayList<String> getTrafego() {
         return trafegoReal;
     }
