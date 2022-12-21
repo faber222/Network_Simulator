@@ -3,13 +3,15 @@ package engtelecom.poo;
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class Maquinas {
+public abstract class Maquinas extends App{
     private Map<String, String> hosts;
     private Map<String, ArrayList<String>> switchs;
+    protected ArrayList<String> trafego;
 
-    public Maquinas(Map<String, String> hosts, Map<String, ArrayList<String>> switchs) {
+    public Maquinas(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego) {
         this.hosts = hosts;
         this.switchs = switchs;
+        this.trafego = trafego;
     }
 
     public Map<String, String> getHosts() {
@@ -20,5 +22,7 @@ public abstract class Maquinas {
         return switchs;
     }
 
-  
+    public ArrayList<String> getTrafego() {
+        return trafego;
+    }
 }
