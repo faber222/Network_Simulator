@@ -41,11 +41,17 @@ public class App {
         // leitorArq.lerTrafego();
 
         Network rede = new Network(app.getHosts(), app.getSwitchs(), app.getTrafego());
-        rede.lerArq();
+        // rede.lerArq();
 
-        // while (!rede.isFim()) {
-
-        // }
+        while (!rede.isFim()) {
+            for (int i = 0; i < app.getHosts().size(); i++) {
+                rede.getMaquinaComputer().get(i).leTrafegoFila();
+            }
+            for (int i = 0; i < app.getSwitchs().size(); i++) {
+                rede.getMaquinaSwitch().get(i).leTrafegoFila();
+            }
+            rede.setFim(true);
+        }
     }
 
 }

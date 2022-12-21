@@ -6,7 +6,7 @@ import java.util.Map;
 public abstract class Maquinas extends App{
     private Map<String, String> hosts;
     private Map<String, ArrayList<String>> switchs;
-    protected ArrayList<String> trafego;
+    private ArrayList<String> trafego;
 
     public Maquinas(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego) {
         this.hosts = hosts;
