@@ -3,38 +3,22 @@ package engtelecom.poo;
 import java.util.ArrayList;
 
 public abstract class Fila implements LeitorFila {
-    private ArrayList<String> fila;
-    private ArrayList<Switch> conexaoSwitch;
-    private ArrayList<Computer> conexaoPc;
-    private int id;
-    
+    protected ArrayList<String> fila;
+    protected ArrayList<Switch> conexaoSwitch;
+    protected ArrayList<Computer> conexaoPc;
+    protected int id;
+
+    protected int gerados;
+    protected int processados;
+    protected int descartados;
+
     public Fila(ArrayList<String> fila, int id) {
         this.fila = fila;
         this.id = id;
+        this.gerados = 0;
+        this.processados = 0;
+        this.descartados = 0;
     }
 
-    public ArrayList<String> getFila() {
-        return fila;
-    }
-
-    public ArrayList<Switch> getConexaoSwitch() {
-        return conexaoSwitch;
-    }
-
-    public ArrayList<Computer> getConexaoPc() {
-        return conexaoPc;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setConexaoSwitch(ArrayList<Switch> conexaoSwitch) {
-        this.conexaoSwitch = conexaoSwitch;
-    }
-
-    public void setConexaoPc(ArrayList<Computer> conexaoPc) {
-        this.conexaoPc = conexaoPc;
-    }
-
+   
 }

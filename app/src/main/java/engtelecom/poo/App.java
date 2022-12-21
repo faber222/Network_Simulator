@@ -31,10 +31,10 @@ public class App {
     public static void main(String[] args) {
         App app = new App();
         Leitor leitorArq = new Leitor(app.getHosts(), app.getSwitchs(), app.getTrafego());
-        File arquivo = new File(args[0]);
-        // File arquivo = new File("topologia.txt");
-        File arquivo2 = new File(args[1]);
-        // File arquivo2 = new File("trafego.txt");
+        // File arquivo = new File(args[0]);
+        File arquivo = new File("topologia.txt");
+        // File arquivo2 = new File(args[1]);
+        File arquivo2 = new File("trafego.txt");
 
         leitorArq.lerTopologia(arquivo);
         leitorArq.capturaTrafego(arquivo2);
@@ -42,12 +42,17 @@ public class App {
         Network rede = new Network(app.getHosts(), app.getSwitchs(), app.getTrafego());
 
         while (!rede.isFim()) {
+            System.out.println("|---------------------------------------------------|");
+            System.out.println("| Dispositivo |             Pacotes                 |");
+            System.out.println("|             | gerados | processados | descartados |");
+            System.out.println("|---------------------------------------------------|");
             for (int i = 0; i < app.getHosts().size(); i++) {
                 rede.getMaquinaComputer().get(i).leTrafegoFila();
             }
             for (int i = 0; i < app.getSwitchs().size(); i++) {
                 rede.getMaquinaSwitch().get(i).leTrafegoFila();
             }
+            System.out.println("|---------------------------------------------------|");
             rede.setFim(true);
         }
     }
