@@ -60,14 +60,14 @@ public class Leitor extends Maquinas {
 
             }
 
-            System.out.println(super.getHosts().size());
-            System.out.println(super.getSwitchs().size());
-            super.getHosts().forEach((key, value) -> System.out.println("o valor de " +
-                    key + " eh: " + value));
+            // System.out.println(super.getHosts().size());
+            // System.out.println(super.getSwitchs().size());
+            // super.getHosts().forEach((key, value) -> System.out.println("o valor de " +
+            //         key + " eh: " + value));
 
-            super.getSwitchs().forEach(
-                    (key, value) -> value.forEach(lista -> System.out.println("o valor de " + key
-                            + " eh: " + lista)));
+            // super.getSwitchs().forEach(
+            //         (key, value) -> value.forEach(lista -> System.out.println("o valor de " + key
+            //                 + " eh: " + lista)));
 
         } catch (Exception e) {
             System.err.print("Nao foi possivel criar o arquivo " + e);
@@ -85,25 +85,25 @@ public class Leitor extends Maquinas {
         }
     }
 
-    public void lerTrafego() {
-        for (String linha : super.getTrafego()) {
-            String[] dispositivos = new String[3];
-            int j = 0;
-            int x = 0;
-            String teste[] = linha.split("|");
-            for (int i = 0; i < linha.length(); i++) {
-                if (x == 2) { // usado para separar a mensagem depois da segunda |
-                    dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
-                }
-                if (teste[i].equals("|")) { // verifica se a string atual é igual a |
-                    dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
-                    j = (i + 1);
-                    x++;
-                }
-            }
-            System.out.printf("Origem: %s -- Destino: %s -- Mensagem: %s\n", dispositivos[0],
-                    dispositivos[1], dispositivos[2]);
-        }
-    }
+    // public void lerTrafego() {
+    //     for (String linha : super.getTrafego()) {
+    //         String[] dispositivos = new String[3];
+    //         int j = 0;
+    //         int x = 0;
+    //         String teste[] = linha.split("|");
+    //         for (int i = 0; i < linha.length(); i++) {
+    //             if (x == 2) { // usado para separar a mensagem depois da segunda |
+    //                 dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
+    //             }
+    //             if (teste[i].equals("|")) { // verifica se a string atual é igual a |
+    //                 dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
+    //                 j = (i + 1);
+    //                 x++;
+    //             }
+    //         }
+    //         System.out.printf("Origem: %s -- Destino: %s -- Mensagem: %s\n", dispositivos[0],
+    //                 dispositivos[1], dispositivos[2]);
+    //     }
+    // }
 
 }
