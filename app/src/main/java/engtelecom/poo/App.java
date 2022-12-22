@@ -42,18 +42,7 @@ public class App {
         Network rede = new Network(app.getHosts(), app.getSwitchs(), app.getTrafego());
 
         while (!rede.isFim()) {
-            System.out.println("|---------------------------------------------------|");
-            System.out.println("| Dispositivo |             Pacotes                 |");
-            System.out.println("|             | gerados | processados | descartados |");
-            System.out.println("|---------------------------------------------------|");
-            for (int i = 0; i < app.getHosts().size(); i++) {
-                rede.getMaquinaComputer().get(i).leTrafegoFila();
-            }
-            for (int i = 0; i < app.getSwitchs().size(); i++) {
-                rede.getMaquinaSwitch().get(i).leTrafegoFila();
-            }
-            System.out.println("|---------------------------------------------------|");
-            rede.setFim(true);
+            rede.processaDados(app.getHosts().size(), app.getSwitchs().size());
         }
     }
 

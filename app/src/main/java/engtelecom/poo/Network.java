@@ -84,7 +84,7 @@ public class Network extends Maquinas {
                                 sw.setConexaoSwitch(swAdd);
                             }
                         }
-                    }   
+                    }
                     getMaquinaSwitch().set(posicao, sw);
                 }
             }
@@ -92,9 +92,19 @@ public class Network extends Maquinas {
         }
     }
 
-    public boolean processaDados() {
-
-        return false;
+    public void processaDados(int sizeHosts, int sizeSwitchs) {
+        System.out.println("|---------------------------------------------------|");
+        System.out.println("| Dispositivo |             Pacotes                 |");
+        System.out.println("|             | gerados | processados | descartados |");
+        System.out.println("|---------------------------------------------------|");
+        for (int i = 0; i < sizeHosts; i++) {
+            getMaquinaComputer().get(i).leTrafegoFila();
+        }
+        for (int i = 0; i < sizeSwitchs; i++) {
+            getMaquinaSwitch().get(i).leTrafegoFila();
+        }
+        System.out.println("|---------------------------------------------------|");
+        setFim(true);
     }
 
     public ArrayList<String> getTrafego() {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Switch extends Fila {
     private int seq;
-    private ArrayList<String> trafegoFila;
     private int processados;
     private int descartados;
 
