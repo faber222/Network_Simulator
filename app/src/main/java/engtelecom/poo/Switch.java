@@ -14,8 +14,8 @@ public class Switch extends Fila {
     }
 
     @Override
-    public ArrayList<Trafego> leTrafegoFila() {
-        String linha = getFila().get(0).getConteudo();
+    public ArrayList<Trafego> leTrafegoFila(ArrayList<Trafego> fila) {
+        String linha = fila.get(0).getConteudo();
         String[] dispositivos = new String[3];
         int j = 0;
         int x = 0;
@@ -114,6 +114,11 @@ public class Switch extends Fila {
     @Override
     public ArrayList<Trafego> getFila() {
         return fila;
+    }
+
+    @Override
+    public void setFila(ArrayList<Trafego> fila) {
+        this.fila = fila;
     }
 
 }
