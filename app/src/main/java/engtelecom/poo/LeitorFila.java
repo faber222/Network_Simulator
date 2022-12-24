@@ -3,7 +3,7 @@ package engtelecom.poo;
 import java.util.ArrayList;
 
 public interface LeitorFila {
-    public abstract boolean leTrafegoFila();
+    public abstract ArrayList<Trafego> leTrafegoFila();
     
     public abstract int getGerados();
 
@@ -17,8 +17,6 @@ public interface LeitorFila {
 
     public abstract void setDescartados(int descartados);
 
-    public abstract ArrayList<String> getFila();
-
     public abstract ArrayList<Switch> getConexaoSwitch();
 
     public abstract ArrayList<Computer> getConexaoPc();
@@ -30,4 +28,6 @@ public interface LeitorFila {
     public abstract void setConexaoPc(ArrayList<Computer> conexaoPc);
 
     public abstract void imprimeFinal(int x);
+
+    public abstract ArrayList<Trafego> getFila();
 }

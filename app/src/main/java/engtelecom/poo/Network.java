@@ -8,7 +8,7 @@ public class Network extends Maquinas {
     private boolean fim;
     private ArrayList<Switch> maquinaSwitch;
     private ArrayList<Computer> maquinaComputer;
-    private ArrayList<String> trafegoReal;
+    private ArrayList<Trafego> trafegoComTtl;
 
     public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego) {
         super(hosts, switchs, trafego);
@@ -16,18 +16,19 @@ public class Network extends Maquinas {
         this.fim = false;
         this.maquinaComputer = new ArrayList<Computer>();
         this.maquinaSwitch = new ArrayList<Switch>();
-        this.trafegoReal = trafego;
+        this.trafegoComTtl = new ArrayList<Trafego>();
 
         for (int i = 1; i <= super.getHosts().size(); i++) {
-            Computer pc = new Computer(getTrafego(), i);
+            Computer pc = new Computer(i);
             this.maquinaComputer.add(pc);
         }
         for (int i = 1; i <= super.getSwitchs().size(); i++) {
-            Switch sw = new Switch(getTrafego(), i);
+            Switch sw = new Switch(i);
             this.maquinaSwitch.add(sw);
         }
         defineConexaoHost();
         defineConexaoSwitch();
+        trataTrafego(trafego);
     }
 
     private void defineConexaoHost() {
@@ -107,8 +108,13 @@ public class Network extends Maquinas {
         setFim(true);
     }
 
-    public ArrayList<String> getTrafego() {
-        return trafegoReal;
+    private void trataTrafego(ArrayList<String> dados) {
+        int i = 0;
+        for (String trafego : dados) {
+            Trafego mensagem = new Trafego(getTtl(), trafego, i);
+            this.trafegoComTtl.add(mensagem);
+            i++;
+        }
     }
 
     public ArrayList<Switch> getMaquinaSwitch() {
@@ -117,6 +123,10 @@ public class Network extends Maquinas {
 
     public ArrayList<Computer> getMaquinaComputer() {
         return maquinaComputer;
+    }
+
+    public int getTtl() {
+        return ttl;
     }
 
     public boolean isFim() {

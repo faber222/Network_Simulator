@@ -5,43 +5,43 @@ import java.util.ArrayList;
 public class Computer extends Fila {
     private int seq;
     private ArrayList<String> trafegoFila;
+    private ArrayList<Trafego> fila;
 
-    public Computer(ArrayList<String> fila, int id) {
-        super(fila, id);
+    public Computer(int id) {
+        super(id);
         this.seq = 0;
     }
 
     @Override
-    public boolean leTrafegoFila() {
-        for (int y = 0; y < getFila().size(); y++) {
-            String linha = getFila().get(getSeq());
-            String[] dispositivos = new String[3];
-            int j = 0;
-            int x = 0;
-            String list[] = linha.split("|");
-            for (int i = 0; i < linha.length(); i++) {
-                if (x == 2) { // usado para separar a mensagem depois da segunda |
-                    dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
-                }
-                if (list[i].equals("|")) { // verifica se a string atual é igual a |
-                    dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
-                    j = (i + 1);
-                    x++;
-                }
+    public ArrayList<Trafego> leTrafegoFila() {
+        String linha = getFila().get(0).getConteudo();
+        String[] dispositivos = new String[3];
+        int j = 0;
+        int x = 0;
+        String list[] = linha.split("|");
+        for (int i = 0; i < linha.length(); i++) {
+            if (x == 2) { // usado para separar a mensagem depois da segunda |
+                dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
             }
-            if (dispositivos[0].equals("h" + getId())) {
-                this.gerados += 1;
-            } else if (dispositivos[1].equals("h" + getId())) {
-                this.processados += 1;
-            } else {
-                this.descartados += 1;
+            if (list[i].equals("|")) { // verifica se a string atual é igual a |
+                dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
+                j = (i + 1);
+                x++;
             }
-
-            setSeq(getSeq() + 1);
         }
+        if (dispositivos[0].equals("h" + getId())) {
+            this.gerados += 1;
+        } else if (dispositivos[1].equals("h" + getId())) {
+            this.processados += 1;
+        } else {
+            this.descartados += 1;
+        }
+
+        setSeq(getSeq() + 1);
+
         imprimeFinal(getId());
 
-        return false;
+        return this.fila;
     }
 
     public int getSeq() {
@@ -76,10 +76,6 @@ public class Computer extends Fila {
         this.descartados = descartados;
     }
 
-    public ArrayList<String> getFila() {
-        return fila;
-    }
-
     public ArrayList<Switch> getConexaoSwitch() {
         return conexaoSwitch;
     }
@@ -105,7 +101,12 @@ public class Computer extends Fila {
         String s = String.format("| h%-10s | %7d | %11d | %11d |", x, this.gerados, this.processados,
                 this.descartados);
         System.out.println(s);
-        
+
+    }
+
+    @Override
+    public ArrayList<Trafego> getFila() {
+        return fila;
     }
 
 }
