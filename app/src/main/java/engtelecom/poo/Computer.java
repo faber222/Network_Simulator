@@ -4,44 +4,29 @@ import java.util.ArrayList;
 
 public class Computer extends Fila {
     private int seq;
-    // private ArrayList<String> trafegoFila;
-    private ArrayList<Trafego> fila;
+    private ArrayList<Trafego> filaLocal;
 
     public Computer(int id) {
         super(id);
         this.seq = 0;
+        this.filaLocal = new ArrayList<Trafego>();
     }
 
     @Override
-    public ArrayList<Trafego> leTrafegoFila(ArrayList<Trafego> fila) {
-        String linha = fila.get(0).getConteudo();
-        String[] dispositivos = new String[3];
-        int j = 0;
-        int x = 0;
-        String list[] = linha.split("|");
-        for (int i = 0; i < linha.length(); i++) {
-            if (x == 2) { // usado para separar a mensagem depois da segunda |
-                dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
-            }
-            if (list[i].equals("|")) { // verifica se a string atual é igual a |
-                dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
-                j = (i + 1);
-                x++;
-            }
-        }
-        if (dispositivos[0].equals("h" + getId())) {
+    public void leTrafegoFila(ArrayList<Trafego> fila) {
+        if (fila.get(0).getHostOrigem().equals("h" + getId())) {
             this.gerados += 1;
-        } else if (dispositivos[1].equals("h" + getId())) {
+            getConexaoSwitch().get(0).addFila(fila.get(0));
+            fila.remove(0);
+        }
+        if (!getFilaLocal().isEmpty() && getFilaLocal().get(0).equals("h" + getId())) {
             this.processados += 1;
-        } else {
-            this.descartados += 1;
+            this.filaLocal.remove(0);
         }
 
-        setSeq(getSeq() + 1);
+        // setSeq(getSeq() + 1);
 
         imprimeFinal(getId());
-
-        return this.fila;
     }
 
     public int getSeq() {
@@ -105,13 +90,18 @@ public class Computer extends Fila {
     }
 
     @Override
-    public ArrayList<Trafego> getFila() {
-        return fila;
+    public ArrayList<Trafego> getFilaLocal() {
+        return filaLocal;
     }
 
     @Override
     public void setFila(ArrayList<Trafego> fila) {
-        this.fila = fila;
+        this.filaLocal = fila;
+    }
+
+    @Override
+    public void addFila(Trafego fila) {
+        this.filaLocal.add(fila);
     }
 
 }

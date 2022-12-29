@@ -3,7 +3,7 @@ package engtelecom.poo;
 import java.util.ArrayList;
 
 public interface LeitorFila {
-    public abstract ArrayList<Trafego> leTrafegoFila(ArrayList<Trafego> fila);
+    public abstract void leTrafegoFila(ArrayList<Trafego> fila);
     
     public abstract int getGerados();
 
@@ -29,7 +29,9 @@ public interface LeitorFila {
 
     public abstract void imprimeFinal(int x);
 
-    public abstract ArrayList<Trafego> getFila();
+    public abstract ArrayList<Trafego> getFilaLocal();
 
     public abstract void setFila(ArrayList<Trafego> fila);
+
+    public abstract void addFila(Trafego fila);
 }

@@ -4,17 +4,16 @@ import java.util.ArrayList;
 
 public class Switch extends Fila {
     private int seq;
-    private int processados;
-    private int descartados;
-    private ArrayList<Trafego> fila;
+    private ArrayList<Trafego> filaLocal;
 
     public Switch(int id) {
         super(id);
         this.seq = 0;
+        this.filaLocal = new ArrayList<Trafego>();
     }
 
     @Override
-    public ArrayList<Trafego> leTrafegoFila(ArrayList<Trafego> fila) {
+    public void leTrafegoFila(ArrayList<Trafego> fila) {
         for (Switch sw : getConexaoSwitch()) {
             if (dispositivos[1].equals("s" + sw.getId())) {
                 this.processados += 1;
@@ -29,10 +28,9 @@ public class Switch extends Fila {
 
         this.descartados += 1;
 
-        setSeq(getSeq() + 1);
+        // setSeq(getSeq() + 1);
 
         imprimeFinal(getId());
-        return this.fila;
     }
 
     public int getSeq() {
@@ -96,13 +94,18 @@ public class Switch extends Fila {
     }
 
     @Override
-    public ArrayList<Trafego> getFila() {
-        return fila;
+    public ArrayList<Trafego> getFilaLocal() {
+        return filaLocal;
     }
 
     @Override
     public void setFila(ArrayList<Trafego> fila) {
-        this.fila = fila;
+        this.filaLocal = fila;
+    }
+
+    @Override
+    public void addFila(Trafego fila){
+        this.filaLocal.add(fila);
     }
 
 }

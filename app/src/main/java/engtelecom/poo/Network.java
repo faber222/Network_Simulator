@@ -99,10 +99,10 @@ public class Network extends Maquinas {
         System.out.println("|             | gerados | processados | descartados |");
         System.out.println("|---------------------------------------------------|");
         for (int i = 0; i < sizeHosts; i++) {
-            getMaquinaComputer().get(i).leTrafegoFila();
+            getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl());
         }
         for (int i = 0; i < sizeSwitchs; i++) {
-            getMaquinaSwitch().get(i).leTrafegoFila();
+            getMaquinaSwitch().get(i).leTrafegoFila(getTrafegoComTtl());
         }
         System.out.println("|---------------------------------------------------|");
         setFim(true);

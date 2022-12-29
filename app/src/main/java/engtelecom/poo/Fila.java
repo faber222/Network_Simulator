@@ -16,6 +16,7 @@ public abstract class Fila implements LeitorFila {
         this.gerados = 0;
         this.processados = 0;
         this.descartados = 0;
+        
     }
 
    
