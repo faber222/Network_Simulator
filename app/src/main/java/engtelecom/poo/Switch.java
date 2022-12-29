@@ -15,22 +15,6 @@ public class Switch extends Fila {
 
     @Override
     public ArrayList<Trafego> leTrafegoFila(ArrayList<Trafego> fila) {
-        String linha = fila.get(0).getConteudo();
-        String[] dispositivos = new String[3];
-        int j = 0;
-        int x = 0;
-        String list[] = linha.split("|");
-        for (int i = 0; i < linha.length(); i++) {
-            if (x == 2) { // usado para separar a mensagem depois da segunda |
-                dispositivos[x] = linha.substring(j); // pega os dados da string a partir da ultima |
-            }
-            if (list[i].equals("|")) { // verifica se a string atual é igual a |
-                dispositivos[x] = linha.substring(j, i); // se for, pega do inicio até a barra e salva no vetor
-                j = (i + 1);
-                x++;
-            }
-        }
-
         for (Switch sw : getConexaoSwitch()) {
             if (dispositivos[1].equals("s" + sw.getId())) {
                 this.processados += 1;
