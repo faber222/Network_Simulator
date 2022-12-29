@@ -14,17 +14,36 @@ public class Switch extends Fila {
 
     @Override
     public void leTrafegoFila(ArrayList<Trafego> fila) {
-        for (Switch sw : getConexaoSwitch()) {
-            if (dispositivos[1].equals("s" + sw.getId())) {
+        for (Computer pc : getConexaoPc()) {
+            if (getFilaLocal().get(0).equals("h" + pc.getId())) {
                 this.processados += 1;
+                getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
+                getFilaLocal().remove(0);
+            } else {
+                int x = getFilaLocal().get(0).getTtl();
+                if ((x - 1) <= 0) {
+                    this.descartados += 1;
+                } else {
+                    this.processados += 1;
+                    getFilaLocal().get(0).setTtl(x);
+                    for (Switch sw : getConexaoSwitch()) {
+                        sw.addFila(getFilaLocal().get(0));
+                    }
+                }
+                getFilaLocal().remove(0);
             }
         }
 
-        for (Computer pc : getConexaoPc()) {
-            if (dispositivos[1].equals("h" + pc.getId())) {
-                this.processados += 1;
-            }
-        }
+        // if (fila.get(0).getHostOrigem().equals("h" + getId())) {
+        // this.gerados += 1;
+        // getConexaoSwitch().get(0).addFila(fila.get(0));
+        // fila.remove(0);
+        // }
+        // if (!getFilaLocal().isEmpty() && getFilaLocal().get(0).equals("h" + getId()))
+        // {
+        // this.processados += 1;
+        // this.filaLocal.remove(0);
+        // }
 
         this.descartados += 1;
 
@@ -104,7 +123,7 @@ public class Switch extends Fila {
     }
 
     @Override
-    public void addFila(Trafego fila){
+    public void addFila(Trafego fila) {
         this.filaLocal.add(fila);
     }
 
