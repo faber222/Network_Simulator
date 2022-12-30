@@ -3,8 +3,7 @@ package engtelecom.poo;
 import java.util.ArrayList;
 
 public interface LeitorFila {
-    public abstract void leTrafegoFila(ArrayList<Trafego> fila);
-    
+   
     public abstract int getGerados();
 
     public abstract int getProcessados();

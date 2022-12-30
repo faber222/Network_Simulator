@@ -12,28 +12,33 @@ public class Switch extends Fila {
         this.filaLocal = new ArrayList<Trafego>();
     }
 
-    @Override
-    public void leTrafegoFila(ArrayList<Trafego> fila) {
-        for (Computer pc : getConexaoPc()) {
-            if (getFilaLocal().get(0).equals("h" + pc.getId())) {
-                this.processados += 1;
-                getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
-                getFilaLocal().remove(0);
-            } else {
+    public void leTrafegoFilaSwitch() {
+        while (!getFilaLocal().isEmpty()) {
+            boolean semHost = true;
+            for (Computer pc : getConexaoPc()) {
+                if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId()) && !getFilaLocal().isEmpty()) {
+                    this.processados += 1;
+                    getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
+                    semHost = false;
+                }
+            }
+            if (semHost) {
                 int x = getFilaLocal().get(0).getTtl();
-                if ((x - 1) <= 0) {
+                x--;
+                if (x <= 0) {
                     this.descartados += 1;
                 } else {
                     this.processados += 1;
                     getFilaLocal().get(0).setTtl(x);
                     for (Switch sw : getConexaoSwitch()) {
-                        sw.addFila(getFilaLocal().get(0));
+                        if (sw.getId() != getId()) {
+                            sw.addFila(getFilaLocal().get(0));
+                        }
                     }
                 }
-                getFilaLocal().remove(0);
             }
+            getFilaLocal().remove(0);
         }
-
         // if (fila.get(0).getHostOrigem().equals("h" + getId())) {
         // this.gerados += 1;
         // getConexaoSwitch().get(0).addFila(fila.get(0));
@@ -45,11 +50,11 @@ public class Switch extends Fila {
         // this.filaLocal.remove(0);
         // }
 
-        this.descartados += 1;
+        // this.descartados += 1;
 
         // setSeq(getSeq() + 1);
 
-        imprimeFinal(getId());
+        // imprimeFinal(getId());
     }
 
     public int getSeq() {

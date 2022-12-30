@@ -98,11 +98,33 @@ public class Network extends Maquinas {
         System.out.println("| Dispositivo |             Pacotes                 |");
         System.out.println("|             | gerados | processados | descartados |");
         System.out.println("|---------------------------------------------------|");
-        for (int i = 0; i < sizeHosts; i++) {
-            getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl());
+
+        while (!getTrafegoComTtl().isEmpty()) {
+            for (int i = 0; i < sizeHosts; i++) {
+                getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl());
+            }
+
+        }
+
+        for (int i = 0; i < sizeSwitchs; i++) {
+            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
         }
         for (int i = 0; i < sizeSwitchs; i++) {
-            getMaquinaSwitch().get(i).leTrafegoFila(getTrafegoComTtl());
+            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+        }
+        for (int i = 0; i < sizeSwitchs; i++) {
+            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+        }
+
+        for (int i = 0; i < sizeHosts; i++) {
+            getMaquinaComputer().get(i).leTrafegoFilaLocal();
+        }
+
+        for (int i = 0; i < sizeHosts; i++) {
+            getMaquinaComputer().get(i).imprimeFinal(i + 1);
+        }
+        for (int i = 0; i < sizeSwitchs; i++) {
+            getMaquinaSwitch().get(i).imprimeFinal(i + 1);
         }
         System.out.println("|---------------------------------------------------|");
         setFim(true);

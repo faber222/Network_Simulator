@@ -4,29 +4,35 @@ import java.util.ArrayList;
 
 public class Computer extends Fila {
     private int seq;
-    private ArrayList<Trafego> filaLocal;
+    private ArrayList<Trafego> filaLocalPc;
 
     public Computer(int id) {
         super(id);
         this.seq = 0;
-        this.filaLocal = new ArrayList<Trafego>();
+        this.filaLocalPc = new ArrayList<Trafego>();
     }
 
-    @Override
     public void leTrafegoFila(ArrayList<Trafego> fila) {
         if (fila.get(0).getHostOrigem().equals("h" + getId())) {
             this.gerados += 1;
             getConexaoSwitch().get(0).addFila(fila.get(0));
             fila.remove(0);
         }
-        if (!getFilaLocal().isEmpty() && getFilaLocal().get(0).equals("h" + getId())) {
-            this.processados += 1;
-            this.filaLocal.remove(0);
-        }
 
         // setSeq(getSeq() + 1);
 
-        imprimeFinal(getId());
+        // imprimeFinal(getId());
+    }
+
+    public void leTrafegoFilaLocal() {
+        int x = 0;
+        while (x < getFilaLocalPc().size()) {
+            if (getFilaLocalPc().get(x).getHostDestino().equals("h" + getId())) {
+                this.processados += 1;
+                getFilaLocalPc().remove(x);
+            }
+            x++;
+        }
     }
 
     public int getSeq() {
@@ -89,19 +95,23 @@ public class Computer extends Fila {
 
     }
 
-    @Override
-    public ArrayList<Trafego> getFilaLocal() {
-        return filaLocal;
+    public ArrayList<Trafego> getFilaLocalPc() {
+        return filaLocalPc;
     }
 
     @Override
     public void setFila(ArrayList<Trafego> fila) {
-        this.filaLocal = fila;
+        this.filaLocalPc = fila;
     }
 
     @Override
     public void addFila(Trafego fila) {
-        this.filaLocal.add(fila);
+        this.filaLocalPc.add(fila);
+    }
+
+    @Override
+    public ArrayList<Trafego> getFilaLocal() {
+        return null;
     }
 
 }
