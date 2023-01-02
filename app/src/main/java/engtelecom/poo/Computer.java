@@ -12,10 +12,14 @@ public class Computer extends Fila {
         this.filaLocalPc = new ArrayList<Trafego>();
     }
 
-    public void leTrafegoFila(ArrayList<Trafego> fila) {
+    public void leTrafegoFila(ArrayList<Trafego> fila, int instante) {
+
         if (fila.get(0).getHostOrigem().equals("h" + getId())) {
             this.gerados += 1;
             getConexaoSwitch().get(0).addFila(fila.get(0));
+            Logger log = new Logger(fila.get(0).getConteudo(), "s" + getConexaoSwitch().get(0).getId(),
+                    fila.get(0).getHostOrigem(), instante);
+            log.writeLog();
             fila.remove(0);
         }
 

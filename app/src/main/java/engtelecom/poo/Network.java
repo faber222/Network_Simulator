@@ -100,12 +100,13 @@ public class Network extends Maquinas {
         System.out.println("|             | gerados | processados | descartados |");
         System.out.println("|---------------------------------------------------|");
 
+        int instante = 1;
         while (!getTrafegoComTtl().isEmpty()) {
             for (int i = 0; i < sizeHosts; i++) {
                 if (getTrafegoComTtl().isEmpty()) {
                     break;
                 }
-                getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl());
+                getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
             }
             for (int i = 0; i < sizeSwitchs; i++) {
                 getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
@@ -113,6 +114,7 @@ public class Network extends Maquinas {
             for (int i = 0; i < sizeHosts; i++) {
                 getMaquinaComputer().get(i).leTrafegoFilaLocal();
             }
+            instante++;
 
         }
 
