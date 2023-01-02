@@ -61,7 +61,7 @@ public class Network extends Maquinas {
         int id = 1;
         for (Switch sw : getMaquinaSwitch()) {
             if (sw.getId() == id) {
-                int idSwitch = 1;
+                int idSwitch;
                 int posicao = getMaquinaSwitch().indexOf(sw);
 
                 if (super.getSwitchs().containsKey("s" + id)) {
@@ -70,8 +70,9 @@ public class Network extends Maquinas {
                     ArrayList<Switch> swAdd = new ArrayList<Switch>();
 
                     for (String swtArray : maquina) {
+                        String idString = swtArray.substring(1);
+                        idSwitch = Integer.parseInt(idString);
                         String list[] = swtArray.split("");
-                        idSwitch = Integer.parseInt(list[1]);
 
                         for (Computer pcConectado : getMaquinaComputer()) {
                             if (pcConectado.getId() == idSwitch && list[0].equals("h")) {
@@ -101,24 +102,33 @@ public class Network extends Maquinas {
 
         while (!getTrafegoComTtl().isEmpty()) {
             for (int i = 0; i < sizeHosts; i++) {
+                if (getTrafegoComTtl().isEmpty()) {
+                    break;
+                }
                 getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl());
+            }
+            for (int i = 0; i < sizeSwitchs; i++) {
+                getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+            }
+            for (int i = 0; i < sizeHosts; i++) {
+                getMaquinaComputer().get(i).leTrafegoFilaLocal();
             }
 
         }
 
-        for (int i = 0; i < sizeSwitchs; i++) {
-            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        }
-        for (int i = 0; i < sizeSwitchs; i++) {
-            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        }
-        for (int i = 0; i < sizeSwitchs; i++) {
-            getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        }
+        // for (int i = 0; i < sizeSwitchs; i++) {
+        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+        // }
+        // for (int i = 0; i < sizeSwitchs; i++) {
+        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+        // }
+        // for (int i = 0; i < sizeSwitchs; i++) {
+        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+        // }
 
-        for (int i = 0; i < sizeHosts; i++) {
-            getMaquinaComputer().get(i).leTrafegoFilaLocal();
-        }
+        // for (int i = 0; i < sizeHosts; i++) {
+        // getMaquinaComputer().get(i).leTrafegoFilaLocal();
+        // }
 
         for (int i = 0; i < sizeHosts; i++) {
             getMaquinaComputer().get(i).imprimeFinal(i + 1);

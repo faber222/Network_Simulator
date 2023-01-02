@@ -16,7 +16,7 @@ public class Switch extends Fila {
         while (!getFilaLocal().isEmpty()) {
             boolean semHost = true;
             for (Computer pc : getConexaoPc()) {
-                if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId()) && !getFilaLocal().isEmpty()) {
+                if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId())) {
                     this.processados += 1;
                     getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
                     semHost = false;
@@ -30,10 +30,8 @@ public class Switch extends Fila {
                 } else {
                     this.processados += 1;
                     getFilaLocal().get(0).setTtl(x);
-                    for (Switch sw : getConexaoSwitch()) {
-                        if (sw.getId() != getId()) {
+                    for (Switch sw : getConexaoSwitch()) {            
                             sw.addFila(getFilaLocal().get(0));
-                        }
                     }
                 }
             }
