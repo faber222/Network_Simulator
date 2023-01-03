@@ -12,12 +12,15 @@ public class Switch extends Fila {
         this.filaLocal = new ArrayList<Trafego>();
     }
 
-    public void leTrafegoFilaSwitch() {
+    public void leTrafegoFilaSwitch(int instante) {
         while (!getFilaLocal().isEmpty()) {
             boolean semHost = true;
             for (Computer pc : getConexaoPc()) {
                 if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId())) {
                     this.processados += 1;
+                    LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "h" + pc.getId(),
+                            getFilaLocal().get(0).getHostOrigem(), instante);
+                    log.writeLog();
                     getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
                     semHost = false;
                 }
@@ -26,12 +29,18 @@ public class Switch extends Fila {
                 int x = getFilaLocal().get(0).getTtl();
                 x--;
                 if (x <= 0) {
+                    LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "*",
+                            "s" + getId(), instante);
+                    log.writeLog();
                     this.descartados += 1;
                 } else {
                     this.processados += 1;
                     getFilaLocal().get(0).setTtl(x);
-                    for (Switch sw : getConexaoSwitch()) {            
-                            sw.addFila(getFilaLocal().get(0));
+                    for (Switch sw : getConexaoSwitch()) {
+                        LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "s" + sw.getId(),
+                                "s" + getId(), instante);
+                        log.writeLog();
+                        sw.addFila(getFilaLocal().get(0));
                     }
                 }
             }

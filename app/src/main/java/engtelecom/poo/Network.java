@@ -109,13 +109,12 @@ public class Network extends Maquinas {
                 getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
             }
             for (int i = 0; i < sizeSwitchs; i++) {
-                getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
+                getMaquinaSwitch().get(i).leTrafegoFilaSwitch(instante);
             }
             for (int i = 0; i < sizeHosts; i++) {
-                getMaquinaComputer().get(i).leTrafegoFilaLocal();
+                getMaquinaComputer().get(i).leTrafegoFilaLocal(instante);
             }
             instante++;
-
         }
 
         // for (int i = 0; i < sizeSwitchs; i++) {

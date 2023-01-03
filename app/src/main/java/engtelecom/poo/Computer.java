@@ -17,21 +17,20 @@ public class Computer extends Fila {
         if (fila.get(0).getHostOrigem().equals("h" + getId())) {
             this.gerados += 1;
             getConexaoSwitch().get(0).addFila(fila.get(0));
-            Logger log = new Logger(fila.get(0).getConteudo(), "s" + getConexaoSwitch().get(0).getId(),
+            LoggerFile log = new LoggerFile(fila.get(0).getConteudo(), "s" + getConexaoSwitch().get(0).getId(),
                     fila.get(0).getHostOrigem(), instante);
             log.writeLog();
             fila.remove(0);
         }
-
-        // setSeq(getSeq() + 1);
-
-        // imprimeFinal(getId());
     }
 
-    public void leTrafegoFilaLocal() {
+    public void leTrafegoFilaLocal(int instante) {
         int x = 0;
         while (x < getFilaLocalPc().size()) {
             if (getFilaLocalPc().get(x).getHostDestino().equals("h" + getId())) {
+                LoggerFile log = new LoggerFile(getFilaLocalPc().get(0).getConteudo(), getFilaLocalPc().get(0).getHostDestino(),
+                        getFilaLocalPc().get(0).getHostDestino(), instante);
+                log.writeLog();
                 this.processados += 1;
                 getFilaLocalPc().remove(x);
             }
