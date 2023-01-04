@@ -20,7 +20,7 @@ public class LoggerFile {
     public void writeLog() {
         File arquivo;
         try {
-            arquivo = new File("../arquivo.txt");
+            arquivo = new File("../log.txt");
             FileWriter fwArquivo = null;
 
             if (arquivo.exists() == true) {// Abre para adicionar dados
