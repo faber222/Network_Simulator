@@ -6,8 +6,8 @@ public class Switch extends Fila {
     private int seq;
     private ArrayList<Trafego> filaLocal;
 
-    public Switch(int id) {
-        super(id);
+    public Switch(int id, String logFile) {
+        super(id, logFile);
         this.seq = 0;
         this.filaLocal = new ArrayList<Trafego>();
     }
@@ -19,7 +19,7 @@ public class Switch extends Fila {
                 if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId())) {
                     this.processados += 1;
                     LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "h" + pc.getId(),
-                            getFilaLocal().get(0).getHostOrigem(), instante);
+                            "s" + getId(), instante, getLogFile());
                     log.writeLog();
                     getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
                     semHost = false;
@@ -30,7 +30,7 @@ public class Switch extends Fila {
                 x--;
                 if (x <= 0) {
                     LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "*",
-                            "s" + getId(), instante);
+                            "s" + getId(), instante, getLogFile());
                     log.writeLog();
                     this.descartados += 1;
                 } else {
@@ -38,7 +38,7 @@ public class Switch extends Fila {
                     getFilaLocal().get(0).setTtl(x);
                     for (Switch sw : getConexaoSwitch()) {
                         LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "s" + sw.getId(),
-                                "s" + getId(), instante);
+                                "s" + getId(), instante, getLogFile());
                         log.writeLog();
                         sw.addFila(getFilaLocal().get(0));
                     }
@@ -137,6 +137,11 @@ public class Switch extends Fila {
     @Override
     public void addFila(Trafego fila) {
         this.filaLocal.add(fila);
+    }
+
+    @Override
+    public String getLogFile() {
+        return super.logFile;
     }
 
 }

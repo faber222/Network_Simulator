@@ -6,8 +6,8 @@ public class Computer extends Fila {
     private int seq;
     private ArrayList<Trafego> filaLocalPc;
 
-    public Computer(int id) {
-        super(id);
+    public Computer(int id, String logFile) {
+        super(id, logFile);
         this.seq = 0;
         this.filaLocalPc = new ArrayList<Trafego>();
     }
@@ -18,7 +18,7 @@ public class Computer extends Fila {
             this.gerados += 1;
             getConexaoSwitch().get(0).addFila(fila.get(0));
             LoggerFile log = new LoggerFile(fila.get(0).getConteudo(), "s" + getConexaoSwitch().get(0).getId(),
-                    fila.get(0).getHostOrigem(), instante);
+                    fila.get(0).getHostOrigem(), instante, getLogFile());
             log.writeLog();
             fila.remove(0);
         }
@@ -29,7 +29,7 @@ public class Computer extends Fila {
         while (x < getFilaLocalPc().size()) {
             if (getFilaLocalPc().get(x).getHostDestino().equals("h" + getId())) {
                 LoggerFile log = new LoggerFile(getFilaLocalPc().get(0).getConteudo(), getFilaLocalPc().get(0).getHostDestino(),
-                        getFilaLocalPc().get(0).getHostDestino(), instante);
+                        getFilaLocalPc().get(0).getHostDestino(), instante, getLogFile());
                 log.writeLog();
                 this.processados += 1;
                 getFilaLocalPc().remove(x);
@@ -115,6 +115,11 @@ public class Computer extends Fila {
     @Override
     public ArrayList<Trafego> getFilaLocal() {
         return null;
+    }
+
+    @Override
+    public String getLogFile() {
+        return super.logFile;
     }
 
 }

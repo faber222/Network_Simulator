@@ -9,18 +9,20 @@ public class LoggerFile {
     private String hostDestino;
     private String hostOrigem;
     private String instante;
+    private String logFile;
 
-    public LoggerFile(String mensagem, String hostDestino, String hostOrigem, int instante) {
+    public LoggerFile(String mensagem, String hostDestino, String hostOrigem, int instante, String logFile) {
         this.mensagem = mensagem;
         this.hostDestino = hostDestino;
         this.hostOrigem = hostOrigem;
         this.instante = String.valueOf(instante);
+        this.logFile = logFile;
     }
 
     public void writeLog() {
         File arquivo;
         try {
-            arquivo = new File("../log.txt");
+            arquivo = new File(getLogFile());
             FileWriter fwArquivo = null;
 
             if (arquivo.exists() == true) {// Abre para adicionar dados
@@ -38,6 +40,10 @@ public class LoggerFile {
         } catch (Exception e) {
             System.err.println("saindo");
         }
+    }
+
+    public String getLogFile() {
+        return logFile;
     }
 
     public String getMensagem() {

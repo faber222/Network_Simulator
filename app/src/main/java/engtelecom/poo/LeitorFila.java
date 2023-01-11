@@ -10,6 +10,8 @@ public interface LeitorFila {
 
     public abstract int getDescartados();
 
+    public abstract String getLogFile();
+
     public abstract void setGerados(int gerados);
 
     public abstract void setProcessados(int processados);

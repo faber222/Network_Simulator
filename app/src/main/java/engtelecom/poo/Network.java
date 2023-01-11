@@ -9,21 +9,23 @@ public class Network extends Maquinas {
     private ArrayList<Switch> maquinaSwitch;
     private ArrayList<Computer> maquinaComputer;
     private ArrayList<Trafego> trafegoComTtl;
+    private String logFile;
 
-    public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego) {
+    public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego, String logFile) {
         super(hosts, switchs, trafego);
         this.ttl = 3;
         this.fim = false;
         this.maquinaComputer = new ArrayList<Computer>();
         this.maquinaSwitch = new ArrayList<Switch>();
         this.trafegoComTtl = new ArrayList<Trafego>();
+        this.logFile = logFile;
 
         for (int i = 1; i <= super.getHosts().size(); i++) {
-            Computer pc = new Computer(i);
+            Computer pc = new Computer(i, getLogFile());
             this.maquinaComputer.add(pc);
         }
         for (int i = 1; i <= super.getSwitchs().size(); i++) {
-            Switch sw = new Switch(i);
+            Switch sw = new Switch(i, getLogFile());
             this.maquinaSwitch.add(sw);
         }
         defineConexaoHost();
@@ -190,6 +192,10 @@ public class Network extends Maquinas {
 
     public void setTrafegoComTtl(ArrayList<Trafego> trafegoComTtl) {
         this.trafegoComTtl = trafegoComTtl;
+    }
+
+    public String getLogFile() {
+        return logFile;
     }
 
 }
