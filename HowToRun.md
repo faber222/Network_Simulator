@@ -152,5 +152,5 @@ $ cd Network_Simulator
 
 # Make sure you have the files of "Topology" and "Traffic" created
 # For run, just write the file name of then, and include de log name
-$ java -jar {topologyNetworkFile.txt} {dataTrafficFile.txt} {logNameFile.txt}
+$ java -jar {appName.jar} {topologyNetworkFile.txt} {dataTrafficFile.txt} {logNameFile.txt}
 ```
