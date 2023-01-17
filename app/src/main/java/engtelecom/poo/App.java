@@ -36,17 +36,14 @@ public class App {
         // File arquivo2 = new File("trafego.txt");
         String logFile = new String(args[2]);
         // String logFile = new String("log.txt");
-        
+
         Leitor leitorArq = new Leitor(app.getHosts(), app.getSwitchs(), app.getTrafego());
 
         leitorArq.lerTopologia(arquivo);
         leitorArq.capturaTrafego(arquivo2);
 
         Network rede = new Network(app.getHosts(), app.getSwitchs(), app.getTrafego(), logFile);
-
-        while (!rede.isFim()) {
-            rede.processaDados(app.getHosts().size(), app.getSwitchs().size());
-        }
+        rede.executaRede(app.getHosts().size(), app.getSwitchs().size());
     }
 
 }

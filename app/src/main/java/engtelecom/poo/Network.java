@@ -11,7 +11,8 @@ public class Network extends Maquinas {
     private ArrayList<Trafego> trafegoComTtl;
     private String logFile;
 
-    public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego, String logFile) {
+    public Network(Map<String, String> hosts, Map<String, ArrayList<String>> switchs, ArrayList<String> trafego,
+            String logFile) {
         super(hosts, switchs, trafego);
         this.ttl = 3;
         this.fim = false;
@@ -96,12 +97,18 @@ public class Network extends Maquinas {
         }
     }
 
-    public void processaDados(int sizeHosts, int sizeSwitchs) {
+    public void executaRede(int sizeHosts, int sizeSwitchs) {
         System.out.println("|---------------------------------------------------|");
         System.out.println("| Dispositivo |             Pacotes                 |");
         System.out.println("|             | gerados | processados | descartados |");
         System.out.println("|---------------------------------------------------|");
+        while (!isFim()) {
+            processaDados(sizeHosts, sizeSwitchs);
+        }
+        System.out.println("|---------------------------------------------------|");
+    }
 
+    private void processaDados(int sizeHosts, int sizeSwitchs) {
         int instante = 1;
         while (!getTrafegoComTtl().isEmpty()) {
             for (int i = 0; i < sizeHosts; i++) {
@@ -133,14 +140,17 @@ public class Network extends Maquinas {
         // getMaquinaComputer().get(i).leTrafegoFilaLocal();
         // }
 
+        printResultado(sizeHosts, sizeSwitchs);
+        setFim(true);
+    }
+
+    private void printResultado(int sizeHosts, int sizeSwitchs) {
         for (int i = 0; i < sizeHosts; i++) {
             getMaquinaComputer().get(i).imprimeFinal(i + 1);
         }
         for (int i = 0; i < sizeSwitchs; i++) {
             getMaquinaSwitch().get(i).imprimeFinal(i + 1);
         }
-        System.out.println("|---------------------------------------------------|");
-        setFim(true);
     }
 
     private void trataTrafego(ArrayList<String> dados) {
@@ -166,35 +176,35 @@ public class Network extends Maquinas {
         }
     }
 
-    public ArrayList<Switch> getMaquinaSwitch() {
+    private ArrayList<Switch> getMaquinaSwitch() {
         return maquinaSwitch;
     }
 
-    public ArrayList<Computer> getMaquinaComputer() {
+    private ArrayList<Computer> getMaquinaComputer() {
         return maquinaComputer;
     }
 
-    public int getTtl() {
+    private int getTtl() {
         return ttl;
     }
 
-    public boolean isFim() {
+    private boolean isFim() {
         return fim;
     }
 
-    public void setFim(boolean fim) {
+    private void setFim(boolean fim) {
         this.fim = fim;
     }
 
-    public ArrayList<Trafego> getTrafegoComTtl() {
+    private ArrayList<Trafego> getTrafegoComTtl() {
         return trafegoComTtl;
     }
 
-    public void setTrafegoComTtl(ArrayList<Trafego> trafegoComTtl) {
+    private void setTrafegoComTtl(ArrayList<Trafego> trafegoComTtl) {
         this.trafegoComTtl = trafegoComTtl;
     }
 
-    public String getLogFile() {
+    private String getLogFile() {
         return logFile;
     }
 

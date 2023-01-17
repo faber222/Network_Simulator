@@ -3,7 +3,7 @@ package engtelecom.poo;
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class Maquinas extends App{
+public abstract class Maquinas {
     private Map<String, String> hosts;
     private Map<String, ArrayList<String>> switchs;
     private ArrayList<String> trafego;
