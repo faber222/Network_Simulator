@@ -108,41 +108,49 @@ public class Network extends Maquinas {
         System.out.println("|---------------------------------------------------|");
     }
 
-    private void processaDados(int sizeHosts, int sizeSwitchs) {
-        int instante = 1;
-        while (!getTrafegoComTtl().isEmpty()) {
-            for (int i = 0; i < sizeHosts; i++) {
-                if (getTrafegoComTtl().isEmpty()) {
-                    break;
-                }
-                getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
-            }
-            for (int i = 0; i < sizeSwitchs; i++) {
-                getMaquinaSwitch().get(i).leTrafegoFilaSwitch(instante);
-            }
-            for (int i = 0; i < sizeHosts; i++) {
-                getMaquinaComputer().get(i).leTrafegoFilaLocal(instante);
-            }
-            instante++;
-        }
+    // private void processaDados(int sizeHosts, int sizeSwitchs) {
+    //     int instante = 1;
+    //     while (!getTrafegoComTtl().isEmpty()) {
+    //         for (int i = 0; i < sizeHosts; i++) {
+    //             if (getTrafegoComTtl().isEmpty()) {
+    //                 break;
+    //             }
+    //             getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
+    //         }
+    //         for (int i = 0; i < sizeSwitchs; i++) {
+    //             getMaquinaSwitch().get(i).leTrafegoFilaSwitch(instante);
+    //         }
+    //         for (int i = 0; i < sizeHosts; i++) {
+    //             getMaquinaComputer().get(i).leTrafegoFilaLocal(instante);
+    //         }
+    //         instante++;
+    //     }
 
-        // for (int i = 0; i < sizeSwitchs; i++) {
-        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        // }
-        // for (int i = 0; i < sizeSwitchs; i++) {
-        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        // }
-        // for (int i = 0; i < sizeSwitchs; i++) {
-        // getMaquinaSwitch().get(i).leTrafegoFilaSwitch();
-        // }
+    //     printResultado(sizeHosts, sizeSwitchs);
+    //     setFim(true);
+    // }
+private void processaDados(int sizeHosts, int sizeSwitchs) {
+    int instante = 1;
+    while (!getTrafegoComTtl().isEmpty()) {
+        final int teste = instante;
+        getMaquinaComputer().stream()
+            .limit(sizeHosts)
+            .forEach(computer -> computer.leTrafegoFila(getTrafegoComTtl(), teste));
 
-        // for (int i = 0; i < sizeHosts; i++) {
-        // getMaquinaComputer().get(i).leTrafegoFilaLocal();
-        // }
+        getMaquinaSwitch().stream()
+            .limit(sizeSwitchs)
+            .forEach(sw -> sw.leTrafegoFilaSwitch(teste));
 
-        printResultado(sizeHosts, sizeSwitchs);
-        setFim(true);
+        getMaquinaComputer().stream()
+            .limit(sizeHosts)
+            .forEach(computer -> computer.leTrafegoFilaLocal(teste));
+
+        instante++;
     }
+    printResultado(sizeHosts, sizeSwitchs);
+    setFim(true);
+}
+
 
     private void printResultado(int sizeHosts, int sizeSwitchs) {
         for (int i = 0; i < sizeHosts; i++) {
@@ -153,28 +161,39 @@ public class Network extends Maquinas {
         }
     }
 
+    // private void trataTrafego(ArrayList<String> dados) {
+    //     int i = 0;
+    //     for (String trafego : dados) {
+    //         String[] dispositivos = new String[3];
+    //         int j = 0;
+    //         int x = 0;
+    //         String list[] = trafego.split("|");
+    //         for (int k = 0; k < trafego.length(); k++) {
+    //             if (x == 2) { // usado para separar a mensagem depois da segunda |
+    //                 dispositivos[x] = trafego.substring(j); // pega os dados da string a partir da ultima |
+    //             }
+    //             if (list[k].equals("|")) { // verifica se a string atual é igual a |
+    //                 dispositivos[x] = trafego.substring(j, k); // se for, pega do inicio até a barra e salva no vetor
+    //                 j = (k + 1);
+    //                 x++;
+    //             }
+    //         }
+    //         Trafego mensagem = new Trafego(getTtl(), dispositivos[2], dispositivos[0], dispositivos[1], i);
+    //         this.trafegoComTtl.add(mensagem);
+    //         i++;
+    //     }
+    // }
+
     private void trataTrafego(ArrayList<String> dados) {
         int i = 0;
         for (String trafego : dados) {
-            String[] dispositivos = new String[3];
-            int j = 0;
-            int x = 0;
-            String list[] = trafego.split("|");
-            for (int k = 0; k < trafego.length(); k++) {
-                if (x == 2) { // usado para separar a mensagem depois da segunda |
-                    dispositivos[x] = trafego.substring(j); // pega os dados da string a partir da ultima |
-                }
-                if (list[k].equals("|")) { // verifica se a string atual é igual a |
-                    dispositivos[x] = trafego.substring(j, k); // se for, pega do inicio até a barra e salva no vetor
-                    j = (k + 1);
-                    x++;
-                }
-            }
+            String[] dispositivos = trafego.split("\\|");
             Trafego mensagem = new Trafego(getTtl(), dispositivos[2], dispositivos[0], dispositivos[1], i);
             this.trafegoComTtl.add(mensagem);
             i++;
         }
     }
+
 
     private ArrayList<Switch> getMaquinaSwitch() {
         return maquinaSwitch;
