@@ -18,7 +18,8 @@ public class Switch extends Fila {
             for (Computer pc : getConexaoPc()) {
                 if (getFilaLocal().get(0).getHostDestino().equals("h" + pc.getId())) {
                     this.processados += 1;
-                    LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "h" + pc.getId(),
+                    LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "h" +
+                            pc.getId(),
                             "s" + getId(), instante, getLogFile());
                     log.writeLog();
                     getConexaoPc().get(getConexaoPc().indexOf(pc)).addFila(getFilaLocal().get(0));
@@ -37,7 +38,8 @@ public class Switch extends Fila {
                     this.processados += 1;
                     getFilaLocal().get(0).setTtl(x);
                     for (Switch sw : getConexaoSwitch()) {
-                        LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "s" + sw.getId(),
+                        LoggerFile log = new LoggerFile(getFilaLocal().get(0).getConteudo(), "s" +
+                                sw.getId(),
                                 "s" + getId(), instante, getLogFile());
                         log.writeLog();
                         sw.addFila(getFilaLocal().get(0));
@@ -46,22 +48,6 @@ public class Switch extends Fila {
             }
             getFilaLocal().remove(0);
         }
-        // if (fila.get(0).getHostOrigem().equals("h" + getId())) {
-        // this.gerados += 1;
-        // getConexaoSwitch().get(0).addFila(fila.get(0));
-        // fila.remove(0);
-        // }
-        // if (!getFilaLocal().isEmpty() && getFilaLocal().get(0).equals("h" + getId()))
-        // {
-        // this.processados += 1;
-        // this.filaLocal.remove(0);
-        // }
-
-        // this.descartados += 1;
-
-        // setSeq(getSeq() + 1);
-
-        // imprimeFinal(getId());
     }
 
     public int getSeq() {

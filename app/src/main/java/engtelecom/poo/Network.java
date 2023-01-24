@@ -108,45 +108,24 @@ public class Network extends Maquinas {
         System.out.println("|---------------------------------------------------|");
     }
 
-    // private void processaDados(int sizeHosts, int sizeSwitchs) {
-    // int instante = 1;
-    // while (!getTrafegoComTtl().isEmpty()) {
-    // for (int i = 0; i < sizeHosts; i++) {
-    // if (getTrafegoComTtl().isEmpty()) {
-    // break;
-    // }
-    // getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
-    // }
-    // for (int i = 0; i < sizeSwitchs; i++) {
-    // getMaquinaSwitch().get(i).leTrafegoFilaSwitch(instante);
-    // }
-    // for (int i = 0; i < sizeHosts; i++) {
-    // getMaquinaComputer().get(i).leTrafegoFilaLocal(instante);
-    // }
-    // instante++;
-    // }
-
-    // printResultado(sizeHosts, sizeSwitchs);
-    // setFim(true);
-    // }
     private void processaDados(int sizeHosts, int sizeSwitchs) {
         int instante = 1;
         while (!getTrafegoComTtl().isEmpty()) {
-            final int teste = instante;
-            getMaquinaComputer().stream()
-                    .limit(sizeHosts)
-                    .forEach(computer -> computer.leTrafegoFila(getTrafegoComTtl(), teste));
-
-            getMaquinaSwitch().stream()
-                    .limit(sizeSwitchs)
-                    .forEach(sw -> sw.leTrafegoFilaSwitch(teste));
-
-            getMaquinaComputer().stream()
-                    .limit(sizeHosts)
-                    .forEach(computer -> computer.leTrafegoFilaLocal(teste));
-
+            for (int i = 0; i < sizeHosts; i++) {
+                if (getTrafegoComTtl().isEmpty()) {
+                    break;
+                }
+                getMaquinaComputer().get(i).leTrafegoFila(getTrafegoComTtl(), instante);
+            }
+            for (int i = 0; i < sizeSwitchs; i++) {
+                getMaquinaSwitch().get(i).leTrafegoFilaSwitch(instante);
+            }
+            for (int i = 0; i < sizeHosts; i++) {
+                getMaquinaComputer().get(i).leTrafegoFilaLocal(instante);
+            }
             instante++;
         }
+
         printResultado(sizeHosts, sizeSwitchs);
         setFim(true);
     }
@@ -218,10 +197,6 @@ public class Network extends Maquinas {
 
     private ArrayList<Trafego> getTrafegoComTtl() {
         return trafegoComTtl;
-    }
-
-    private void setTrafegoComTtl(ArrayList<Trafego> trafegoComTtl) {
-        this.trafegoComTtl = trafegoComTtl;
     }
 
     private String getLogFile() {
