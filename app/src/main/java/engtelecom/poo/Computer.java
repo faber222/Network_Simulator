@@ -24,26 +24,11 @@ public class Computer extends Fila {
         }
     }
 
-    // public void leTrafegoFilaLocal(int instante) {
-    //     int x = 0;
-    //     while (x < getFilaLocalPc().size()) {
-    //         if (getFilaLocalPc().get(x).getHostDestino().equals("h" + getId())) {
-    //             LoggerFile log = new LoggerFile(getFilaLocalPc().get(0).getConteudo(),
-    //                     getFilaLocalPc().get(0).getHostDestino(),
-    //                     getFilaLocalPc().get(0).getHostDestino(), instante, getLogFile());
-    //             log.writeLog();
-    //             this.processados += 1;
-    //             getFilaLocalPc().remove(x);
-    //         }
-    //         x++;
-    //     }
-    // }
-
     public void leTrafegoFilaLocal(int instante) {
         getFilaLocalPc().removeIf(pacote -> !pacote.getHostDestino().equalsIgnoreCase("h" + getId()));
         for (Trafego teste : getFilaLocalPc()) {
-            LoggerFile log = new LoggerFile(teste.getConteudo(), teste.getHostOrigem(),
-                    teste.getHostDestino(), instante, getLogFile());
+            LoggerFile log = new LoggerFile(teste.getConteudo(), teste.getHostDestino(),
+                    "h" + getId(), instante, getLogFile());
             log.writeLog();
             this.processados++;
         }
